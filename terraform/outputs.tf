@@ -13,14 +13,16 @@ output "ecr_registry_id" {
   value       = aws_ecr_repository.hello_world.registry_id
 }
 
-# App Runner Service URL
-output "app_runner_service_url" {
-  description = "URL of the App Runner service"
-  value       = aws_apprunner_service.hello_world.service_url
-}
+# App Runner outputs commented out - will be enabled later
+# # App Runner Service URL
+# output "app_runner_service_url" {
+#   description = "URL of the App Runner service"
+#   value       = aws_apprunner_service.hello_world.service_url
+# }
+#
+# # App Runner Service Status
+# output "app_runner_service_status" {
+#   description = "Status of the App Runner service"
+#   value       = aws_apprunner_service.hello_world.status
+# }
 
-# App Runner Service Status
-output "app_runner_service_status" {
-  description = "Status of the App Runner service"
-  value       = aws_apprunner_service.hello_world.status
-}
