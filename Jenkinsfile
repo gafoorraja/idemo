@@ -25,6 +25,19 @@ pipeline {
                 }
             }
         }
+        
+       stage('unit Test case'){
+           steps {
+               script {
+                   // Run unit tests
+                   sh '''
+                       cd ${WORKSPACE_DIR}/quickapp
+                       pytest > result.log || true
+                       tail -n 10 result.log
+                   '''
+               }
+           }
+       } 
 
         stage('Build Image') {
             steps {
@@ -39,6 +52,7 @@ pipeline {
                         podman build --format docker --platform linux/amd64 -t ${APP_NAME}:${BUILD_NUMBER} .
                         podman tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REPO}:${BUILD_NUMBER}
                         podman tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REPO}:latest
+                        relee-branch-date-build
                     '''
                 }
             }
