@@ -19,7 +19,8 @@ pipeline {
                 script {
                     sh '''
                         cd quickapp
-                        podman build --platform linux/amd64 -t ${APP_NAME}:${BUILD_NUMBER} .
+                        mkdir -p ${HOME}/.local/share/containers
+                        podman build --format docker --platform linux/amd64 -t ${APP_NAME}:${BUILD_NUMBER} .
                         podman tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REPO}:${BUILD_NUMBER}
                         podman tag ${APP_NAME}:${BUILD_NUMBER} ${ECR_REPO}:latest
                     '''
