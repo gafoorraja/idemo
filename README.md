@@ -172,7 +172,7 @@ For the interview setup, we'll create a dedicated IAM user with programmatic acc
    - Permissions: attach AWS managed `AdministratorAccess` (sandbox only)
 2. On the "Retrieve access keys" step, securely store both values:
    - Access key ID: `AKIA...`
-   - Secret access key: `wJalrXUtnFEMI/K7MDENG/bPxRfiCY...`
+   - Secret access key: `wJalrXU...`
 
 ### Containerized AWS CLI with access keys (no host installs)
 We'll mount the AWS config to the container user's home directory using a generic approach.
