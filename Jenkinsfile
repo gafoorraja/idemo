@@ -14,6 +14,19 @@ pipeline {
     }
 
     stages {
+        stage('Sync Job Parameters') {
+            steps {
+                script {
+                    // Force-create/refresh job parameters so "Build with Parameters" shows up
+                    properties([
+                        parameters([
+                            choice(name: 'TF_ACTION', choices: ['apply', 'destroy'], description: 'Run Terraform apply (provision/update) or destroy (tear down)')
+                        ])
+                    ])
+                }
+            }
+        }
+
         stage('Ensure Podman Machine') {
             when {
                 expression { params.TF_ACTION == 'apply' }
