@@ -14,6 +14,24 @@ pipeline {
     }
 
     stages {
+        stage('Ensure Podman Machine') {
+            when {
+                expression { params.TF_ACTION == 'apply' }
+            }
+            steps {
+                sh '''
+                    set -e
+                    echo "Checking Podman machine status..."
+                    if ! podman machine list --format json | grep -q '"Running": true'; then
+                      echo "Podman machine not running. Starting..."
+                      podman machine start
+                    else
+                      echo "Podman machine is already running."
+                    fi
+                    podman info | head -n 20 || true
+                '''
+            }
+        }
         stage('Pre-Destroy Cleanup (ECR)') {
             when {
                 expression { params.TF_ACTION == 'destroy' }
